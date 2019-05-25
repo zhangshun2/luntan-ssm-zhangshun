@@ -71,6 +71,16 @@ public class GameServiceIm implements GameService {
         return listdto;
     }
 
+
+    public List<Game> gameSelect() {
+        gameExample.clear();
+        GameExample.Criteria criteria = gameExample.createCriteria().andGidIsNotNull();
+
+        List<Game> games = gameMapper.selectByExample(gameExample);
+        return games;
+    }
+
+
     @Override
     public List<Game> selectBygId(String id) {
         gameExample.clear();
