@@ -37,6 +37,20 @@ public class GameController {
         System.out.println(game);
         return "redirect:/bootcontext.jsp";
     }
+    @GetMapping("/showgameindex")
+    public  String  showgameindex(String ttype, HttpSession httpSession){
+        System.out.println(ttype);
+        List<GameDto> games = gameService.SelectByTypeAll(ttype);
+
+        System.out.println("games:"+games);
+        if (httpSession.getAttribute("gamedto")!=null){
+            httpSession.removeAttribute("gamedto");
+        }
+        httpSession.setAttribute("gamedto",games);
+        Object game = httpSession.getAttribute("gamedto");
+        System.out.println(game);
+        return "redirect:/indexreal.jsp";
+    }
 
     @GetMapping("/showgameone")
     public String showgameone(String ttype , HttpSession httpSession){
