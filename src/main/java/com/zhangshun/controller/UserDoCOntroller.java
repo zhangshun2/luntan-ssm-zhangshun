@@ -39,8 +39,8 @@ public class UserDoCOntroller {
     }
 
     /**
-     * 统计点赞和收藏的数量
-     * @param dowhat 点赞 ； 收藏
+     * 统计点赞和收藏的数量g
+     * @param dowhat 点赞 ； 收藏gi
      * @param cardid 帖子id
      * @return
      */
