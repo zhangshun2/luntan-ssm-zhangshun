@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhangshun.dao.UserLogMapper" >
+  <resultMap id="BaseResultMap" type="com.zhangshun.entity.UserLog" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="nowtime" property="nowtime" jdbcType="TIMESTAMP" />
+    <result column="userdo" property="userdo" jdbcType="VARCHAR" />
+    <result column="useridtwo" property="useridtwo" jdbcType="INTEGER" />
+    <result column="usertuoname" property="usertuoname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, nowtime, userdo, useridtwo, usertuoname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangshun.entity.UserLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from userlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from userlog
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from userlog
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhangshun.entity.UserLogExample" >
+    delete from userlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhangshun.entity.UserLog" >
+    insert into userlog (userid, nowtime, userdo, 
+      useridtwo, usertuoname)
+    values (#{userid,jdbcType=INTEGER}, #{nowtime,jdbcType=TIMESTAMP}, #{userdo,jdbcType=VARCHAR}, 
+      #{useridtwo,jdbcType=INTEGER}, #{usertuoname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhangshun.entity.UserLog" >
+    insert into userlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="nowtime != null" >
+        nowtime,
+      </if>
+      <if test="userdo != null" >
+        userdo,
+      </if>
+      <if test="useridtwo != null" >
+        useridtwo,
+      </if>
+      <if test="usertuoname != null" >
+        usertuoname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nowtime != null" >
+        #{nowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userdo != null" >
+        #{userdo,jdbcType=VARCHAR},
+      </if>
+      <if test="useridtwo != null" >
+        #{useridtwo,jdbcType=INTEGER},
+      </if>
+      <if test="usertuoname != null" >
+        #{usertuoname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhangshun.entity.UserLogExample" resultType="java.lang.Integer" >
+    select count(*) from userlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update userlog
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.nowtime != null" >
+        nowtime = #{record.nowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userdo != null" >
+        userdo = #{record.userdo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useridtwo != null" >
+        useridtwo = #{record.useridtwo,jdbcType=INTEGER},
+      </if>
+      <if test="record.usertuoname != null" >
+        usertuoname = #{record.usertuoname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update userlog
+    set userid = #{record.userid,jdbcType=INTEGER},
+      nowtime = #{record.nowtime,jdbcType=TIMESTAMP},
+      userdo = #{record.userdo,jdbcType=VARCHAR},
+      useridtwo = #{record.useridtwo,jdbcType=INTEGER},
+      usertuoname = #{record.usertuoname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangshun.entity.UserLog" >
+    update userlog
+    <set >
+      <if test="nowtime != null" >
+        nowtime = #{nowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userdo != null" >
+        userdo = #{userdo,jdbcType=VARCHAR},
+      </if>
+      <if test="useridtwo != null" >
+        useridtwo = #{useridtwo,jdbcType=INTEGER},
+      </if>
+      <if test="usertuoname != null" >
+        usertuoname = #{usertuoname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhangshun.entity.UserLog" >
+    update userlog
+    set nowtime = #{nowtime,jdbcType=TIMESTAMP},
+      userdo = #{userdo,jdbcType=VARCHAR},
+      useridtwo = #{useridtwo,jdbcType=INTEGER},
+      usertuoname = #{usertuoname,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

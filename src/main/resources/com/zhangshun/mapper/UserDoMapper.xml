@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhangshun.dao.UserDoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhangshun.entity.UserDo" >
+    <id column=" itemid" property="itemid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="cardid" property="cardid" jdbcType="INTEGER" />
+    <result column="dowhat" property="dowhat" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    " itemid", userid, cardid, dowhat
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangshun.entity.UserDoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from userdo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from userdo
+    where " itemid" = #{itemid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from userdo
+    where " itemid" = #{itemid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhangshun.entity.UserDoExample" >
+    delete from userdo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhangshun.entity.UserDo" >
+    insert into userdo (" itemid", userid, cardid, 
+      dowhat)
+    values (#{itemid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{cardid,jdbcType=INTEGER}, 
+      #{dowhat,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhangshun.entity.UserDo" >
+    insert into userdo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        " itemid",
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="cardid != null" >
+        cardid,
+      </if>
+      <if test="dowhat != null" >
+        dowhat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        #{itemid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null" >
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="dowhat != null" >
+        #{dowhat,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhangshun.entity.UserDoExample" resultType="java.lang.Integer" >
+    select count(*) from userdo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update userdo
+    <set >
+      <if test="record.itemid != null" >
+        " itemid" = #{record.itemid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardid != null" >
+        cardid = #{record.cardid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dowhat != null" >
+        dowhat = #{record.dowhat,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update userdo
+    set " itemid" = #{record.itemid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      cardid = #{record.cardid,jdbcType=INTEGER},
+      dowhat = #{record.dowhat,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangshun.entity.UserDo" >
+    update userdo
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null" >
+        cardid = #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="dowhat != null" >
+        dowhat = #{dowhat,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where " itemid" = #{itemid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhangshun.entity.UserDo" >
+    update userdo
+    set userid = #{userid,jdbcType=INTEGER},
+      cardid = #{cardid,jdbcType=INTEGER},
+      dowhat = #{dowhat,jdbcType=VARCHAR}
+    where " itemid" = #{itemid,jdbcType=INTEGER}
+  </update>
+</mapper>
