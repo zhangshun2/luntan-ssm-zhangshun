@@ -7,15 +7,19 @@ import com.zhangshun.entity.Card;
 import com.zhangshun.entity.CardExample;
 import com.zhangshun.entity.Game;
 import com.zhangshun.entity.GameExample;
+import com.zhangshun.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author : zhangshun
@@ -34,6 +38,8 @@ public class CardController {
     private GameMapper gameMapper ;
     @Autowired
     private GameExample gameExample;
+    @Autowired
+    private CardService cardService;
 
     @GetMapping("/showone")
     public String showone(String id , HttpSession httpSession){
@@ -86,5 +92,35 @@ public class CardController {
     public String showByUserDo(HttpSession httpSession){
         return "redirect:/post.jsp";
     }
+    @PostMapping("/dianzan")
+    @ResponseBody
+    public Map<String,String> dianzan(String id,HttpSession httpSession){
+        Map<String,String> map=new HashMap<>();
+        try {
+            cardService.dianzan(id,httpSession);
+            map.put("status","200");
+            map.put("result","点赞成功！");
 
+        }catch (Exception e){
+            map.put("status","500");
+            map.put("result","抱歉,系统出错,点赞失败！");
+        }
+        return map;
+    }
+
+    @PostMapping("/shoucang")
+    @ResponseBody
+    public Map<String,String> shoucang(String tid,String uid,HttpSession httpSession){
+        Map<String,String> map=new HashMap<>();
+        try {
+            cardService.shoucang(tid,uid);
+            map.put("status","200");
+            map.put("result","收藏成功！");
+
+        }catch (Exception e){
+            map.put("status","500");
+            map.put("result","抱歉,系统出错,收藏失败！");
+        }
+        return map;
+    }
 }

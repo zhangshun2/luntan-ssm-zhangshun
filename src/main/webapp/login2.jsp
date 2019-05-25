@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <body>
+
 <div class="cotn_principal">
   <div class="cont_centrar">
     <div class="cont_login">
@@ -37,6 +38,8 @@
       <div class="cont_forms" >
         <div class="cont_img_back_"> <img src="po.jpg" alt="" /> </div>
         <form action="${pageContext.request.contextPath}/user/login">
+          <%--收藏帖子没登录,把帖子id传过来--%>
+          <input type="hidden" name="tid" value="${param.tid}" />
           <div class="cont_form_login"> <a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
 
             <h2>LOGIN</h2>

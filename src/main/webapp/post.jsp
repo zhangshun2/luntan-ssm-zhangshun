@@ -18,63 +18,87 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body id="mydiv">
+<input type="hidden" id="userID" value="${sessionScope.user.uid}" />
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
             <div class="page-header">
                 <h1>
-                    页标题范例 <small>此处编写页标题</small>
+                    <small>${sessionScope.onecard.title}</small>
                 </h1>
             </div>
             <dl>
                 <dt>
-                    Rolex
+                    内容:
                 </dt>
                 <dd>
-                    劳力士创始人为汉斯.威尔斯多夫，1908年他在瑞士将劳力士注册为商标。
-                </dd>
-                <dt>
-                    Vacheron Constantin
-                </dt>
-                <dd>
-                    始创于1775年的江诗丹顿已有250年历史，
-                </dd>
-                <dd>
-                    是世界上历史最悠久、延续时间最长的名表之一。
-                </dd>
-                <dt>
-                    IWC
-                </dt>
-                <dd>
-                    创立于1868年的万国表有“机械表专家”之称。
-                </dd>
-                <dt>
-                    Cartier
-                </dt>
-                <dd>
-                    卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
+                    ${sessionScope.onecard.content}
                 </dd>
             </dl>
-            <p>
-                <em>Git</em>是一个分布式的版本控制系统，最初由<strong>Linus Torvalds</strong>编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在Ruby社区中。
-            </p>
         </div>
     </div>
 </div>
 
 <div class="btn-group">
     <button type="button" class="btn btn-default">返回列表</button>
-    <button type="button" class="btn btn-default">点赞&nbsp;(12)</button>
+    <button type="button" class="btn btn-default" onclick="dianzan()">点赞&nbsp;(<span id="dianzanCount">${sessionScope.onecard.thumpsuptimes}</span>)</button>
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             more
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">收藏()</a></li>
-            <li><a href="#">举报</a></li>
+            <li><a href="javascript:void(0);" onclick="shoucang()">收藏(<span id="shoucangCount">${sessionScope.onecard.collecttimes}</span>)</a></li>
+            <li><a href="javascript:void(0);">举报</a></li>
         </ul>
     </div>
 </div>
+<script>
+    var dianzan=function(){
+        //先页面效果
+        var dianzanCount=$("#dianzanCount").html();
+        $("#dianzanCount").html(++dianzanCount);
+        //再发送异步请求修改数据
+        $.ajax({
+            url: "${pageContext.request.contextPath}/card/dianzan",
+            type: "post",
+            dataType: "json",
+            data: "id="+${sessionScope.onecard.tid},
+            success: function(json){
+                if(json.status==200){
+                    alert(json.result);
+                }else{
+                    //如果后端代码有问题,页面-1
+                    alert(json.result);
+                    $("#dianzanCount").html(dianzanCount--);
+                }
+            }
+        })
+    }
+    var shoucang=function(){
+        //判断用户登录
+        var userID=$("#userID").val();
+        if (!(userID == null || userID == "")) {
+            var shoucangCount = $("#shoucangCount").html();
+            $("#shoucangCount").html(++shoucangCount);
+            $.ajax({
+                url: "${pageContext.request.contextPath}/card/shoucang",
+                type: "post",
+                dataType: "json",
+                data: "tid="+${sessionScope.onecard.tid}+"&uid="+userID,
+                success: function (json) {
+                    if (json.status == 200) {
+                        alert(json.result);
+                    } else {
+                        alert(json.result);
+                        $("#dianzanCount").html(dianzanCount--);
+                    }
+                }
+            })
+        } else {
+            location.href = "${pageContext.request.contextPath}/login2.jsp?tid="+${sessionScope.onecard.tid};
+        }
+    }
+</script>
 </body>
 </html>

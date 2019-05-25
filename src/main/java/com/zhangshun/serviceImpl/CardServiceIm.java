@@ -1,6 +1,5 @@
 package com.zhangshun.serviceImpl;
 
-import com.sun.tools.javac.jvm.Items;
 import com.zhangshun.dao.CardMapper;
 import com.zhangshun.dao.GameMapper;
 import com.zhangshun.dao.UserDoMapper;
@@ -118,12 +117,12 @@ public class CardServiceIm implements CardService {
 
     /**
      * 收藏
-     * @param id
+     * @param tid 帖子 uid 用户
      */
     @Override
-    public void shoucang(String id) {
+    public void shoucang(String tid,String uid) {
         cardExample.clear();
-        cardExample.createCriteria().andTidEqualTo(Integer.parseInt(id));
+        cardExample.createCriteria().andTidEqualTo(Integer.parseInt(tid));
         List<Card> cards = cardMapper.selectByExample(cardExample);
         Card card = cards.get(0);
         card.setCollecttimes(card.getCollecttimes()+1);
@@ -158,7 +157,10 @@ public class CardServiceIm implements CardService {
         cardExample.createCriteria().andTidEqualTo(Integer.parseInt(id));
         List<Card> cards = cardMapper.selectByExample(cardExample);
         Card card = cards.get(0);
+        System.out.println(card);
         card.setThumpsuptimes(card.getThumpsuptimes()+1);
         User user = (User) httpSession.getAttribute("user");
+        int i = cardMapper.updateByPrimaryKey(card);
+        System.out.println(i);
     }
 }

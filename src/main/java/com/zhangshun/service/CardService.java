@@ -26,7 +26,7 @@ public interface CardService {
 
     List<CardDto> findAllBygameBigType();
 
-    void shoucang(String id);
+    void shoucang(String tid,String uid);
 
     void dianzan(String id,HttpSession HttpSession);
 

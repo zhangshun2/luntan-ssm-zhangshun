@@ -31,12 +31,12 @@ public class UserController {
     private UserMapper userMapper ;
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
-    public  String login(String username  , String password , HttpSession httpSession){
-        System.out.println(username+""+password);
+    public  String login(String username  , String password ,String tid, HttpSession httpSession){
+        System.out.println("login-tid-35"+tid);
         if (username==null||password==null){
             httpSession.removeAttribute("msg");
             httpSession.setAttribute("msg","账号信息验证失败");
-            return "redirect:/login2.jsp" ;
+            return "redirect:/login2.jsp?tid="+tid ;
         }
         User user = new User() ;
         user.setUsername(username);
@@ -44,12 +44,13 @@ public class UserController {
         if (userService.selectUser(user).getUid()!=null){
             httpSession.setAttribute("user",userService.selectUser(user));
         }
-        String power = user.getPower() == null?"user":(user.getPower()=="3"?"admin":"user");
-        if (power.equals("admin")){
-            return "redirect:/admincontext.jsp";
-        }
         User user1 = userService.selectByUserName(username);
         SessionUtils.saveSession(httpSession,"user",user1);
+        //tid存在-->用户收藏没登录-->登录后跳转回原页面
+        if (!StringUtils.isNullOrEmpty(tid)){
+            return "redirect:/card/showone?id="+tid;
+        }
+        //正常登录
         return  "redirect:/game/showgame";
     }
 
