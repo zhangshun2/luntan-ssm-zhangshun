@@ -45,7 +45,7 @@ public class UserDoCOntroller {
      * @return
      */
     @GetMapping("/dianzancount")
-    public Msg count(String dowhat , String cardid ,HttpSession){
+    public Msg count(String dowhat , String cardid ,HttpSession httpSession){
         userDoExample.clear();
         userDoExample.createCriteria().andDowhatEqualTo(dowhat).andCardidEqualTo(Integer.parseInt(cardid));
         List<UserDo> userDos = userDoMapper.selectByExample(userDoExample);
