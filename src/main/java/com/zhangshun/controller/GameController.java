@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -22,6 +24,13 @@ import java.util.List;
 public class GameController {
     @Autowired
     private GameService gameService ;
+
+    @GetMapping("/gameselect")
+    @ResponseBody
+    public  List<Game>  showgameSelect(){
+        List<Game> games = gameService.selectAll();
+        return games;
+    }
 
     @GetMapping("/showgame")
     public  String  showgame(String ttype, HttpSession httpSession){
