@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
 public class UserDoExample {
     protected String orderByClause;
@@ -107,62 +108,62 @@ public class UserDoExample {
         }
 
         public Criteria andItemidIsNull() {
-            addCriterion("\" itemid\" is null");
+            addCriterion("itemid is null");
             return (Criteria) this;
         }
 
         public Criteria andItemidIsNotNull() {
-            addCriterion("\" itemid\" is not null");
+            addCriterion("itemid is not null");
             return (Criteria) this;
         }
 
         public Criteria andItemidEqualTo(Integer value) {
-            addCriterion("\" itemid\" =", value, "itemid");
+            addCriterion("itemid =", value, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidNotEqualTo(Integer value) {
-            addCriterion("\" itemid\" <>", value, "itemid");
+            addCriterion("itemid <>", value, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidGreaterThan(Integer value) {
-            addCriterion("\" itemid\" >", value, "itemid");
+            addCriterion("itemid >", value, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\" itemid\" >=", value, "itemid");
+            addCriterion("itemid >=", value, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidLessThan(Integer value) {
-            addCriterion("\" itemid\" <", value, "itemid");
+            addCriterion("itemid <", value, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidLessThanOrEqualTo(Integer value) {
-            addCriterion("\" itemid\" <=", value, "itemid");
+            addCriterion("itemid <=", value, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidIn(List<Integer> values) {
-            addCriterion("\" itemid\" in", values, "itemid");
+            addCriterion("itemid in", values, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidNotIn(List<Integer> values) {
-            addCriterion("\" itemid\" not in", values, "itemid");
+            addCriterion("itemid not in", values, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidBetween(Integer value1, Integer value2) {
-            addCriterion("\" itemid\" between", value1, value2, "itemid");
+            addCriterion("itemid between", value1, value2, "itemid");
             return (Criteria) this;
         }
 
         public Criteria andItemidNotBetween(Integer value1, Integer value2) {
-            addCriterion("\" itemid\" not between", value1, value2, "itemid");
+            addCriterion("itemid not between", value1, value2, "itemid");
             return (Criteria) this;
         }
 

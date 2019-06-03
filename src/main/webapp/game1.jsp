@@ -23,74 +23,69 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Brand</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Game Trfibune</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="#">Link</a>
+                            <a target="_self" href="index.jsp">主页</a>
                         </li>
-                        <li>
-                            <a href="#">Link</a>
+                        <li class="active">
+                            <a target="_self" href="${pageContext.request.contextPath}/game/showgameindex">首页</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">Action</a>
-                                </li>
-                                <li>
-                                    <a href="#">Another action</a>
-                                </li>
-                                <li>
-                                    <a href="#">Something else here</a>
-                                </li>
-                                <li class="divider">
-                                </li>
-                                <li>
-                                    <a href="#">Separated link</a>
-                                </li>
-                                <li class="divider">
-                                </li>
-                                <li>
-                                    <a href="#">One more separated link</a>
-                                </li>
-                            </ul>
+
+
+
+
+
+                        <li class="active right">
+                            <a href="#">
+
+                                <c:choose>
+                                    <c:when test="${sessionScope.user.username!=null}">${sessionScope.user.username}</c:when>
+                                    <c:when test="${sessionScope.user.username==null}"><a href="${pageContext.request.contextPath}/login2.jsp">登录</a> </c:when>
+                                </c:choose>
+                            </a>
+                        </li>
+                        <li class="active right">
+                            <a href="#">
+                                <c:choose>
+                                    <c:when test="${sessionScope.user.username!=null}"><span style="color: greenyellow">online</span>
+                                    </c:when>
+                                    <c:when test="${sessionScope.user.username==null}"><span style="font-size: 11px"><a href="${pageContext.request.contextPath}/login2.jsp">请前往登录页面</a> </span> </c:when>
+                                </c:choose>
+
+                            </a>
+                        </li>
+                        <li class="active right">
+                            <a href="${pageContext.request.contextPath}/user/signout">
+                                <c:choose>
+                                    <c:when test="${sessionScope.user.username!=null}"><span style="color: greenyellow">注销</span>
+                                    </c:when>
+                                    <c:when test="${sessionScope.user.username==null}"><span style="font-size: 11px"></span> </c:when>
+                                </c:choose>
+
+                            </a>
+                        </li>
+                        <li class=" navbar-right">
+                            <a href="${pageContext.request.contextPath}/card/toadd">
+                            <span style="size: 40px">
+                                + 帖子
+                            </span>
+                            </a>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" />
                         </div> <button type="submit" class="btn btn-default">Submit</button>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">Link</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">Action</a>
-                                </li>
-                                <li>
-                                    <a href="#">Another action</a>
-                                </li>
-                                <li>
-                                    <a href="#">Something else here</a>
-                                </li>
-                                <li class="divider">
-                                </li>
-                                <li>
-                                    <a href="#">Separated link</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+
                 </div>
+
             </nav>
 
 
@@ -114,8 +109,8 @@
                         <div class="carousel-caption"><a style="color: yellow">${sessionScope.gamedto[0].list[1].gname}</a></div>
                     </div>
                     <div class="item">
-                        <img src="${pageContext.request.contextPath}/${sessionScope.gamedto[0].list[1].gurl}" alt="Third slide">
-                        <div class="carousel-caption"><a style="color: yellow">${sessionScope.gamedto[0].list[1].gname}</a></div>
+                        <img src="${pageContext.request.contextPath}/${sessionScope.gamedto[0].list[2].gurl}" alt="Third slide">
+                        <div class="carousel-caption"><a style="color: yellow">${sessionScope.gamedto[0].list[2].gname}</a></div>
                     </div>
 
                 </div>
@@ -135,7 +130,7 @@
             <br>
             <br>
             <br>
-            ${pageContext.request.contextPath}/${sessionScope.gamedto[0].list[0]}
+
             <div class="carousel slide" id="carousel-841926">
                 <ol class="carousel-indicators">
                     <li data-slide-to="0" data-target="#carousel-841926">
@@ -149,17 +144,17 @@
 
             <ul class="nav nav-pills">
                 <li class="active">
-                    <a href="#"> <span class="badge pull-right">42</span> ${sessionScope.gamedto[0].name}</a>
+                    <a href="#"> <span class="badge pull-right">${sessionScope.c1}</span> ${sessionScope.gamedto[0].name}</a>
                 </li>
                 <li>
-                    <a href="#"> <span class="badge pull-right">16</span> More</a>
+                    <a href="#"> <span class="badge pull-right">${sessionScope.c2}</span> More</a>
                 </li>
             </ul>
             <hr>
             <ul class="list-inline">
             <c:forEach var="game" items="${sessionScope.gamedto[0].list}">
                 <li>
-                    <a>${game.gname}</a>
+                    <a href="${pageContext.request.contextPath}/game/gamedto2?gameid=${game.gid}">${game.gname}</a>
                 </li>&nbsp;丨&nbsp;
 
             </c:forEach>
@@ -176,7 +171,8 @@
                 <div class="row clearfix">
                     <div class="col-md-12 column">
                         <h3>
-                            ${game.gname}
+                            <a href="${pageContext.request.contextPath}/game/gamedto2?gameid=${game.gid}"> ${game.gname}</a>
+
                         </h3>
                         <blockquote>
                             <p style="text-align: center">
@@ -185,7 +181,7 @@
 
                         </blockquote>
                         <p class="text-center text-info">
-                            <em>${game.gname}</em> 是一个让人非常开心的游戏。
+                            <em><a href="${pageContext.request.contextPath}/game/gamedto2?gameid=${game.gid}"> ${game.gname}</a></em> 是一个让人非常开心的游戏。
                         </p>
                     </div>
                 </div>
@@ -194,7 +190,7 @@
 
 
             <p class="text-center text-info">
-                <em>真正的快乐是自律</em>，得我所得，方有闲暇时间，娱乐休憩，得一方净土，怡然自乐，偶得菜根，百嚼不厌。
+                <em>真正的快乐是<a href="https://tieba.baidu.com/f?kw=%E8%87%AA%E5%BE%8B&ie=utf-8&tp=0">自律</a></em>，得我所得，方有闲暇时间，娱乐休憩，得一方净土，怡然自乐，偶得菜根，百嚼不厌。
             </p>
         </div>
     </div>

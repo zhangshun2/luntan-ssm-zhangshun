@@ -42,6 +42,7 @@
     }
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/canvas-particle.js"></script>
+
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -53,45 +54,50 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="#">首页</a>
+                            <a target="_self" href="index.jsp">主页</a>
                         </li>
-                        <li>
-                            <a href="#">流行帖子</a>
+                        <li class="active">
+                            <a target="_self" href="${pageContext.request.contextPath}/game/showgameindex">首页</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">个人信息</a>
-                                </li>
-                                <li>
-                                    <a href="#">点赞帖子</a>
-                                </li>
-                                <li>
-                                    <a href="#">评论帖子</a>
-                                </li>
-                                <li class="divider">
-                                </li>
-                                <li>
-                                    <a href="#">个人帖子</a>
-                                </li>
-                                <li class="divider">
-                                </li>
-                                <li>
-                                    <a href="#">更多</a>
-                                </li>
-                            </ul>
-                        </li>
+
+
 
 
 
                         <li class="active right">
                             <a href="#">
-                                ${sessionScope.user.username}
+
                             <c:choose>
-                                <c:when test="${sessionScope.user.username}!=null">${sessionScope.user.username}</c:when>
-                                <c:when test="${sessionScope.user.username}==null">登录</c:when>
+                                <c:when test="${sessionScope.user.username!=null}">${sessionScope.user.username}</c:when>
+                                <c:when test="${sessionScope.user.username==null}"><a href="${pageContext.request.contextPath}/login2.jsp">登录</a> </c:when>
                             </c:choose>
+                            </a>
+                        </li>
+                        <li class="active right">
+                            <a href="#">
+                                <c:choose>
+                                    <c:when test="${sessionScope.user.username!=null}"><span style="color: greenyellow">online</span>
+                                    </c:when>
+                                    <c:when test="${sessionScope.user.username==null}"><span style="font-size: 11px"><a href="${pageContext.request.contextPath}/login2.jsp">请前往登录页面</a> </span> </c:when>
+                                </c:choose>
+
+                            </a>
+                        </li>
+                        <li class="active right">
+                            <a href="${pageContext.request.contextPath}/user/signout">
+                                <c:choose>
+                                    <c:when test="${sessionScope.user.username!=null}"><span style="color: greenyellow">注销</span>
+                                    </c:when>
+                                    <c:when test="${sessionScope.user.username==null}"><span style="font-size: 11px"></span> </c:when>
+                                </c:choose>
+
+                            </a>
+                        </li>
+                        <li class=" navbar-right">
+                            <a href="${pageContext.request.contextPath}/card/toadd">
+                            <span style="size: 40px">
+                                + 帖子
+                            </span>
                             </a>
                         </li>
                     </ul>
@@ -135,20 +141,21 @@
                 <c:forEach var="gamedto" items="${sessionScope.gamedto}">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <a class="panel-title" data-toggle="collapse" data-parent="#panel-718983" href="#panel-element-546265">${gamedto.name}</a>
+                            <a class="panel-title" data-toggle="collapse" data-parent="#panel-718983" href="#panel-element-546265">${gamedto.name}</a> <span style="float: right"><a style="color: yellow" href="${pageContext.request.contextPath}/game/showgameone?ttype=${gamedto.type}">go</a></span>
                         </div>
                         <div id="panel-element-546265" class="panel-collapse">
                             <div class="panel-body">
                                 <c:forEach var="game" items="${gamedto.list}">
                                     <li class="list-group-item">
-                                        <span style="font-size: 18px;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: bold">
-                                            <br>${game.gname}</span> ---  ${game.gcontext}
+                                        <span  style="font-size: 18px;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: bold">
+                                        <br><a href="${pageContext.request.contextPath}/game/gamedto2?gameid=${game.gid}">${game.gname}</a></span> ---  ${game.gcontext}
 
                                         </li>
 
                                 </c:forEach>
                                 <hr>
-                                <span style="float: right"> >>进入分区 </span>
+
+                                <span style="float: right"><a style="color: #122b40" href="${pageContext.request.contextPath}/game/showgameone?ttype=${gamedto.type}">>>进入分区</a></span>
                             </div>
                         </div>
                     </div>

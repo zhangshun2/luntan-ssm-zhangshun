@@ -26,34 +26,11 @@
 			<div class="fr nav"> 
 				<ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
 					<li class="active">
-						<a href="context.jsp">首页</a>
+						<a href="${pageContext.request.contextPath}/game/showgameindex?ttype=">首页</a>
 					</li>
-					<li class="dropdown">
-						<a href="javascript:void(0)">
-							热门游戏
-						</a>
-						<div class="dropdown_menu">
-							<a href="#">Custom Menu</a>
-							<a href="#">Custom Menu</a>
-							<a href="#">Custom Menu</a>
-						</div>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:void(0)">游戏圈</a>
-						<div class="dropdown_menu">
-							<a href="#">游戏资源</a>
-							<a href="#">聊天频道</a>
-							<a href="#">技术贴</a>
-						</div>
-					</li>
+
 					<li>
-						<a href="javascript:void(0)">热门交易</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)">用户中心</a>
-					</li>
-					<li>
-						<a href="login.jsp">登录</a>
+						<a href="login2.jsp">登录</a>
 					</li>
 
 				</ul>

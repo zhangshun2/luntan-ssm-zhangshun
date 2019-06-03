@@ -18,11 +18,12 @@ public interface CardService {
 
     List<Card> findCardByUser(String userid);
 
-    List<Card> findCardByMySelf(HttpSession httpSession);
 
-    List<Card> findByCardHot();
+    List<Card> findByCardHot(String id);
 
-    List<Card> findByCardNew();
+    List<Card> findByCardSave(String id);
+
+    List<Card> findByCardNew(String id);
 
     List<CardDto> findAllBygameBigType();
 

@@ -1,8 +1,14 @@
 package com.zhangshun.entity;
 
-import org.springframework.stereotype.Repository;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserDo implements Serializable {
     private Integer itemid;
 

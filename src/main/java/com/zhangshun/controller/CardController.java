@@ -3,10 +3,7 @@ package com.zhangshun.controller;
 import com.zhangshun.commom.SessionUtils;
 import com.zhangshun.dao.CardMapper;
 import com.zhangshun.dao.GameMapper;
-import com.zhangshun.entity.Card;
-import com.zhangshun.entity.CardExample;
-import com.zhangshun.entity.Game;
-import com.zhangshun.entity.GameExample;
+import com.zhangshun.entity.*;
 import com.zhangshun.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author : zhangshun
@@ -82,10 +76,49 @@ public class CardController {
         return "";
     }
 
+    @GetMapping("/toadd")
+    public String toadd(HttpSession session){
+        gameExample.clear();
+        gameExample.createCriteria().andGidIsNotNull();
+        List<Game> games = gameMapper.selectByExample(gameExample);
+        System.out.println("toadd"+games);
+        session.setAttribute("toadd",games);
+        return "redirect:/cardAdd.jsp";
+    }
     @GetMapping("/add")
-    @ResponseBody
-    public String add(){
-        return "";
+    public String add(String title ,String gamename ,String content,HttpSession session){
+        if (title==null){
+            return "redirect:/cardAdd.jsp";
+        }
+        Card card = new Card();
+
+        User user = (User) (session.getAttribute("user"));
+        cardExample.clear();
+        cardExample.setOrderByClause("remarks desc");
+        cardExample.createCriteria().andTidIsNotNull();
+        List<Card> cards = cardMapper.selectByExample(cardExample);
+        gameExample.clear();
+        GameExample.Criteria criteria = gameExample.createCriteria().andGnameEqualTo(gamename);
+        List<Game> games = gameMapper.selectByExample(gameExample);
+        System.out.println(gamename+"1111"+games);
+        Game game = games.get(0);
+        Card build = Card.builder().tid(0)
+                .authorid(user == null ? 0 : user.getUid())
+                .collect(1)
+                .collecttimes(0)
+                .content(content == null ? "" : content)
+                .gameid(game.getGid())
+                .gamename(gamename)
+                .hidden("1luntanimage/default" + new Random().nextInt(10) + ".jpg")
+                .remarks(String.valueOf(Integer.parseInt(cards.get(0).getRemarks()) + 1))
+                .showlevel(1)
+                .thumpsup(1)
+                .thumpsuptimes(0)
+                .title(title)
+                .build();
+        System.out.println("add"+build);
+        cardMapper.insert(build);
+        return "redirect:/game/gamedto2?gameid="+build.getGameid();
     }
 
     @GetMapping("/showbyuserdo")
@@ -122,5 +155,13 @@ public class CardController {
             map.put("result","抱歉,系统出错,收藏失败！");
         }
         return map;
+    }
+    @GetMapping("search")
+    public String search(String word , HttpSession session){
+        cardExample.clear();
+        CardExample.Criteria criteria = cardExample.createCriteria().andContentLike("%" + word +"%");
+        List<Card> cards = cardMapper.selectByExample(cardExample);
+        session.setAttribute("",cards);
+        return  "";
     }
 }

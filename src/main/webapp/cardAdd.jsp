@@ -98,31 +98,35 @@
     <%--${pageContext.request.contextPath}/card/cardadd--%>
     <%--同步异步处理都行--%>
         <%--提交不管成功不成功之后跳到审批中页面 adminsee.jsp --%>
-    <form name="" method="get">
+    <form action="${pageContext.request.contextPath}/card/add" method="get">
         <ul>
             <li>
                 <label>标题：</label>
-                <input type="text" name="yourname" placeholder="请输入标题"  onblur="checkna()" required/><span class="tips" id="divname">长度1~12个字符</span>
+                <input type="text" name="title" placeholder="请输入标题"  onblur="checkna()" required/><span class="tips" id="divname">长度1~12个字符</span>
             </li>
 
             <li>
-                <label>电子邮箱：</label>
+
+                <label>游戏：</label>
                <%-- //遍历出所有的游戏
                 //接口/game/gameselect 无参数--%>
-                <select  style="width: 250px;height: 40px">
-                    <option>default</option>
+                <select  style="width: 250px;height: 40px"  name="gamename">
+                    <c:forEach var="s" items="${sessionScope.toadd}">
+                        <option name="${s.gid}">${s.gname}</option>
+                    </c:forEach>
 
                 </select >
             </li>
             <li>
                 <label>内容:</label>
-                <textarea style="height: 700px;width: 600px"></textarea>
+                <textarea name="content" style="height: 700px;width: 600px"> </textarea>
             </li>
         </ul>
         <b class="btn"><input type="submit" value="提交"/>
             <input type="reset" value="取消"/></b>
     </form>
 </div>
+
 </body>
 </html>
 

@@ -4,9 +4,9 @@ spring:
       prefix: /
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://localhost:3306/luntan?characterEncoding=utf-8
-    username: root
-    password: admins
+    url: jdbc:mysql://148.70.152.194:3306/luntan?characterEncoding=utf-8
+    username: zhangs
+    password: zhangs
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
   http:
@@ -21,9 +21,10 @@ server:
     init-parameters:
       development: true
 
-  port: 9000
+  port: 9010
   context-path: /luntan
 
 mybatis:
   mapper-locations: classpath:com/zhangshun/mapper/*.xml
-  type-aliases-package: com.zhangshun.entity  # ע�⣺��Ӧʵ�����·��
+  type-aliases-package: com.zhangshun.entity
+

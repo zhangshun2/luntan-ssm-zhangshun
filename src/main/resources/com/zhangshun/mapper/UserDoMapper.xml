@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhangshun.dao.UserDoMapper" >
   <resultMap id="BaseResultMap" type="com.zhangshun.entity.UserDo" >
-    <id column=" itemid" property="itemid" jdbcType="INTEGER" />
+    <id column="itemid" property="itemid" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="cardid" property="cardid" jdbcType="INTEGER" />
     <result column="dowhat" property="dowhat" jdbcType="VARCHAR" />
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    " itemid", userid, cardid, dowhat
+    itemid, userid, cardid, dowhat
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangshun.entity.UserDoExample" >
     select
@@ -87,11 +87,11 @@
     select 
     <include refid="Base_Column_List" />
     from userdo
-    where " itemid" = #{itemid,jdbcType=INTEGER}
+    where itemid = #{itemid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from userdo
-    where " itemid" = #{itemid,jdbcType=INTEGER}
+    where itemid = #{itemid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.zhangshun.entity.UserDoExample" >
     delete from userdo
@@ -100,7 +100,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zhangshun.entity.UserDo" >
-    insert into userdo (" itemid", userid, cardid, 
+    insert into userdo (itemid, userid, cardid, 
       dowhat)
     values (#{itemid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{cardid,jdbcType=INTEGER}, 
       #{dowhat,jdbcType=VARCHAR})
@@ -109,7 +109,7 @@
     insert into userdo
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="itemid != null" >
-        " itemid",
+        itemid,
       </if>
       <if test="userid != null" >
         userid,
@@ -146,7 +146,7 @@
     update userdo
     <set >
       <if test="record.itemid != null" >
-        " itemid" = #{record.itemid,jdbcType=INTEGER},
+        itemid = #{record.itemid,jdbcType=INTEGER},
       </if>
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=INTEGER},
@@ -164,7 +164,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update userdo
-    set " itemid" = #{record.itemid,jdbcType=INTEGER},
+    set itemid = #{record.itemid,jdbcType=INTEGER},
       userid = #{record.userid,jdbcType=INTEGER},
       cardid = #{record.cardid,jdbcType=INTEGER},
       dowhat = #{record.dowhat,jdbcType=VARCHAR}
@@ -185,13 +185,13 @@
         dowhat = #{dowhat,jdbcType=VARCHAR},
       </if>
     </set>
-    where " itemid" = #{itemid,jdbcType=INTEGER}
+    where itemid = #{itemid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhangshun.entity.UserDo" >
     update userdo
     set userid = #{userid,jdbcType=INTEGER},
       cardid = #{cardid,jdbcType=INTEGER},
       dowhat = #{dowhat,jdbcType=VARCHAR}
-    where " itemid" = #{itemid,jdbcType=INTEGER}
+    where itemid = #{itemid,jdbcType=INTEGER}
   </update>
 </mapper>

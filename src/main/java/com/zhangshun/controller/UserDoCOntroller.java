@@ -6,8 +6,7 @@ import com.zhangshun.entity.User;
 import com.zhangshun.entity.UserDo;
 import com.zhangshun.entity.UserDoExample;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -18,6 +17,7 @@ import java.util.List;
  * @Version 1.0
  */
 @RestController
+@RequestMapping("/userdo")
 public class UserDoCOntroller {
     @Autowired
     private UserDoExample userDoExample ;
@@ -26,15 +26,8 @@ public class UserDoCOntroller {
 
     @GetMapping("/userdo")
     public String dianzan(String cardid , String dowhat ,HttpSession httpSession){
-        userDoExample.clear();
-        UserDo userDo = new UserDo();
-        userDo.setCardid(Integer.parseInt(cardid));
-        userDo.setItemid(0);
         User user = (User) (httpSession.getAttribute("user"));
-        userDo.setUserid(user==null? 0:user.getUid());
-        userDo.setDowhat(dowhat);
-        userDo.setItemid(0);
-        userDoMapper.insert(userDo);
+        userDoMapper.insert(UserDo.builder().cardid(Integer.parseInt(cardid)).itemid(0).dowhat("点赞").userid(user==null?0:user.getUid()).build());
         return  "ok";
     }
 
@@ -52,6 +45,48 @@ public class UserDoCOntroller {
 
         return new Msg().builder().count(userDos.size()).msg("ok").build();
     }
+
+    /**
+     * 进行评论
+     * @param cardId
+     * @param context
+     * @param session
+     * @return
+     */
+    @PostMapping("/pinglun")
+    @ResponseBody
+    public List<UserDo> pinglun(String cardId , String context,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        System.out.println(context);
+        if (context!=null){
+            if (user!=null){
+                Integer userUid = user.getUid();
+                UserDo build = UserDo.builder().cardid(Integer.parseInt(cardId)).itemid(0).userid(userUid).dowhat(context).build();
+                System.out.println(build);
+                userDoMapper.insert(build);
+            }
+        }
+        userDoExample.clear();
+        userDoExample.createCriteria().andUseridIsNotNull();
+        List<UserDo> userDos = userDoMapper.selectByExample(userDoExample);
+        System.out.println(userDos);
+        return userDos;
+    }
+
+    /**
+     * 查询所有的评论
+     * @param cardId
+     * @return
+     */
+    @PostMapping("/getpinglun")
+    @ResponseBody
+    public List<UserDo> GetPinglun(String cardId){
+        userDoExample.clear();
+        userDoExample.createCriteria().andDowhatNotEqualTo("点赞").andDowhatNotEqualTo("评论");
+        List<UserDo> userDos = userDoMapper.selectByExample(userDoExample);
+        return userDos;
+    }
+
 
 
 

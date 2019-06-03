@@ -76,34 +76,57 @@ public class CardServiceIm implements CardService {
      */
     @Override
     public List<Card> findCardByUser(String userid) {
-        return null;
+        cardExample.clear();
+        cardExample.createCriteria().andAuthoridEqualTo(Integer.parseInt(userid));
+        List<Card> cards = cardMapper.selectByExample(cardExample);
+        return cards;
     }
 
-    /**
-     * 一个用户自己的帖子
-     * @return
-     */
-    @Override
-    public List<Card> findCardByMySelf(HttpSession httpSession) {
-        return null;
-    }
+
 
     /**
      * 热门帖子，点赞收藏次数多
      * @return
      */
     @Override
-    public List<Card> findByCardHot() {
-        return null;
+    public List<Card> findByCardHot(String id) {
+        cardExample.clear();
+        cardExample.setOrderByClause("thumpsuptimes desc");
+        if (id!=null){
+            cardExample.createCriteria().andGameidEqualTo(Integer.parseInt(id));
+        }
+        List<Card> cards = cardMapper.selectByExample(cardExample);
+        List<Card> cards1 = cards.subList(0, cards.size() < 4 ? cards.size() : 3);
+        return cards1;
     }
+
+    @Override
+    public List<Card> findByCardSave(String id){
+        cardExample.clear();
+        cardExample.setOrderByClause("collecttimes desc");
+        if (id!=null){
+            cardExample.createCriteria().andGameidEqualTo(Integer.parseInt(id));
+        }
+        List<Card> cards = cardMapper.selectByExample(cardExample);
+        List<Card> cards1 = cards.subList(0, cards.size() < 4 ? cards.size() : 3);
+        return cards1;
+    };
+
 
     /**
      * 最新帖子 排序remark时间戳
      * @return
      */
     @Override
-    public List<Card> findByCardNew() {
-        return null;
+    public List<Card> findByCardNew(String id) {
+        cardExample.clear();
+        cardExample.setOrderByClause("remarks desc");
+        if (id!=null){
+            cardExample.createCriteria().andGameidEqualTo(Integer.parseInt(id));
+        }
+        List<Card> cards = cardMapper.selectByExample(cardExample);
+        List<Card> cards1 = cards.subList(0, cards.size() < 4 ? cards.size() : 3);
+        return cards1;
     }
 
     /**

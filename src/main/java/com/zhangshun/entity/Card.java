@@ -1,8 +1,17 @@
 package com.zhangshun.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
+@Builder
+@Data
+
 public class Card implements Serializable {
+
     private Integer tid;
 
     private String content;
@@ -204,5 +213,24 @@ public class Card implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Card(Integer tid, String content, String title, Integer authorid, String hidden, Integer collect, Integer thumpsup, Integer collecttimes, Integer thumpsuptimes, Integer showlevel, Integer gameid, String gamename, String remarks) {
+        this.tid = tid;
+        this.content = content;
+        this.title = title;
+        this.authorid = authorid;
+        this.hidden = hidden;
+        this.collect = collect;
+        this.thumpsup = thumpsup;
+        this.collecttimes = collecttimes;
+        this.thumpsuptimes = thumpsuptimes;
+        this.showlevel = showlevel;
+        this.gameid = gameid;
+        this.gamename = gamename;
+        this.remarks = remarks;
+    }
+
+    public Card() {
     }
 }

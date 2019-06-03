@@ -51,7 +51,7 @@ public class UserController {
             return "redirect:/card/showone?id="+tid;
         }
         //正常登录
-        return  "redirect:/game/showgame";
+        return  "redirect:/game/showgameindex";
     }
 
     @RequestMapping(value = "regist", method = RequestMethod.GET)
@@ -75,7 +75,7 @@ public class UserController {
                 }else {
                     int emailexistcount = 0 ;
                     for (User usertmp : users){
-                        if (StringUtils.equals(usertmp.getEmail(),user.getEmail())){
+                        if (usertmp.getEmail().equals(user.getEmail())){
                             emailexistcount++;
                         }
                     }
@@ -100,10 +100,15 @@ public class UserController {
                 userExample.createCriteria().andUsernameEqualTo(user.getUsername());
                 httpSession.setAttribute("user",userMapper.selectByExample(userExample));
                 System.out.println(3);
-                return "redirect:/game/showgame";
+                return "redirect:/game/showgameindex";
             }
         }
         System.out.println(4);
-        return  "redirect:/game/showgame";
+        return  "redirect:/game/showgameindex";
+    }
+    @RequestMapping("signout")
+    public String signout(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/game/showgameindex";
     }
 }
