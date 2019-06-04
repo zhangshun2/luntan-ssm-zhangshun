@@ -84,7 +84,7 @@
                     评论
                 </h4>
             </div>
-            <form action="${pageContext.request.contextPath}/userdo/pinglun">
+            <form action="${pageContext.request.contextPath}/userdo/pinglun" method="post">
                 <div class="modal-body">
                     <input hidden="hidden" name="cardId" value="${sessionScope.onecard.tid}">
                     <input name="context" style="text-decoration-color: yellow ;width: 100%; height: 300px"  ></input>
@@ -92,9 +92,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="submit" id="pinglunbutton" class="btn btn-primary" data-dismiss="modal">
-                        评论
-                    </button>
+                    <input value="提交" type="submit" class="btn btn-primary" >
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -103,25 +101,25 @@
 <script>
     //评论
 
-    var pinglunkuang=$("#pinglunkuang").val();
-    var pinglun=function(){
-        $.ajax({
-            url: "${pageContext.request.contextPath}/userdo/pinglun",
-            type: "post",
-            dataType: "json",
-            data: "cardId="+${sessionScope.onecard.tid}+"&context="+pinglunkuang,
-            success: function(json){
-                var str = "";
-                if(json!=null){
-                    console.log(json);
-                    for (var i = 0; i++; i < json.length) {
-                        str+= "<hr>"+json[i].dowhat;
-                    }
-                    $("#pinglunjiazai").append(str);
-                }
-            }
-        })
-    }
+    <%--var pinglunkuang=$("#pinglunkuang").val();--%>
+    <%--var pinglun=function(){--%>
+        <%--$.ajax({--%>
+            <%--url: "${pageContext.request.contextPath}/userdo/pinglun",--%>
+            <%--type: "post",--%>
+            <%--dataType: "json",--%>
+            <%--data: "cardId="+${sessionScope.onecard.tid}+"&context="+pinglunkuang,--%>
+            <%--success: function(json){--%>
+                <%--var str = "";--%>
+                <%--if(json!=null){--%>
+                    <%--console.log(json);--%>
+                    <%--for (var i = 0; i++; i < json.length) {--%>
+                        <%--str+= "<hr>"+json[i].dowhat;--%>
+                    <%--}--%>
+                    <%--$("#pinglunjiazai").append(str);--%>
+                <%--}--%>
+            <%--}--%>
+        <%--})--%>
+    <%--}--%>
 
     var dianzan=function(){
         //先页面效果

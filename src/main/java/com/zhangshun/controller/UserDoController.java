@@ -6,6 +6,7 @@ import com.zhangshun.entity.User;
 import com.zhangshun.entity.UserDo;
 import com.zhangshun.entity.UserDoExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -16,9 +17,9 @@ import java.util.List;
  * @Date : 2019/5/25 11:34
  * @Version 1.0
  */
-@RestController
+@Controller
 @RequestMapping("/userdo")
-public class UserDoCOntroller {
+public class UserDoController {
     @Autowired
     private UserDoExample userDoExample ;
     @Autowired
