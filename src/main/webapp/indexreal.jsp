@@ -68,7 +68,7 @@
             <li class="active right">
 
                     <c:choose>
-                        <c:when test="${sessionScope.user.username!=null}"><span style="color: greenyellow">online</span>
+                        <c:when test="${sessionScope.user.username!=null}"><a>online</a>
                         </c:when>
                         <c:when test="${sessionScope.user.username==null}"><a href="${pageContext.request.contextPath}/login2.jsp"><span style="font-size: 11px">请前往登录页面 </span></a> </c:when>
                     </c:choose>
@@ -93,10 +93,10 @@
                 </a>
             </li>
         </ul>
-        <form class="navbar-form navbar-right" role="search">
+        <form class="navbar-form navbar-right" role="search" action="${pageContext.request.contextPath}/card/search" method="get">
             <div class="form-group">
-                <input type="text" class="form-control" />
-            </div> <button type="submit" class="btn btn-default">Submit</button>
+                <input type="text" name="word" class="form-control" />
+            </div> <button type="submit" class="btn btn-default">搜索</button>
         </form>
 
     </div>

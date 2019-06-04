@@ -16,33 +16,6 @@
     <![endif]-->
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-
-
-
-        $(function(){
-            $.ajax({
-                url: "${pageContext.request.contextPath}/userdo/getpinglun",
-                type: "post",
-                dataType: "json",
-                data: "cardId="+${sessionScope.onecard.tid}+"&context=",
-                success: function(json){
-                    var tr = "";
-                    console.log(json);
-                    if(json!=null){
-                            for (var i = 0;i < json.length;i++) {
-                                tr += $('<hr>'+json[i].userid+':'+json[i].dowhat+'</hr>');
-                                //3. 绑定在tbody
-                                $("#pinglunjiazai").val(tr);
-                            console.log(json[i]);
-                        }
-                        console.log(str);
-                        $("#pinglunjiazai").val(str);
-                    }
-                }
-            });
-        });
-    </script>
 </head>
 <body id="mydiv">
 <input type="hidden" id="userID" value="${sessionScope.user.uid}" />
@@ -60,7 +33,7 @@
                 </dt>
                 <dd>
                     ${sessionScope.onecard.content}
-                        <input id="pinglunjiazai" style="width: 100%">
+
                 </dd>
             </dl>
         </div>
@@ -81,8 +54,24 @@
     </div>
     <button class="btn btn-default"  data-toggle="modal" data-target="#myModal">评论</button>
 </div>
+<hr>
+<table class="table">
+    <caption>相关评论：</caption>
+    <thead>
+    <tr>
+    </tr>
+    </thead>
+    <tbody>
 
-
+    <c:forEach var="c" items="${sessionScope.pinglunAll}" varStatus="s" >
+        <tr>
+            <c:if test="${c.dowhat!=''}">
+                <td >${s.count}:${c.dowhat}</a></td>
+            </c:if>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -95,16 +84,19 @@
                     评论
                 </h4>
             </div>
-            <div class="modal-body">
-                <<input name="pinglunkuang" style="text-decoration-color: yellow ;width: 100%; height: 300px" id="pinglunkuang" ></input>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" id="pinglunbutton" class="btn btn-primary" data-dismiss="modal">
-                    评论
-                </button>
-            </div>
+            <form action="${pageContext.request.contextPath}/userdo/pinglun">
+                <div class="modal-body">
+                    <input hidden="hidden" name="cardId" value="${sessionScope.onecard.tid}">
+                    <input name="context" style="text-decoration-color: yellow ;width: 100%; height: 300px"  ></input>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" id="pinglunbutton" class="btn btn-primary" data-dismiss="modal">
+                        评论
+                    </button>
+                </div>
+            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>

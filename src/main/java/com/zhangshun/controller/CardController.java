@@ -3,6 +3,7 @@ package com.zhangshun.controller;
 import com.zhangshun.commom.SessionUtils;
 import com.zhangshun.dao.CardMapper;
 import com.zhangshun.dao.GameMapper;
+import com.zhangshun.dao.UserDoMapper;
 import com.zhangshun.entity.*;
 import com.zhangshun.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class CardController {
     @Autowired
     private CardExample cardExample ;
     @Autowired
+    private UserDoExample userDoExample ;
+    @Autowired
+    private UserDoMapper userDoMapper ;
+    @Autowired
     private GameMapper gameMapper ;
     @Autowired
     private GameExample gameExample;
@@ -41,6 +46,21 @@ public class CardController {
         cardExample.createCriteria().andTidEqualTo(Integer.parseInt(id));
         List<Card> cards = cardMapper.selectByExample(cardExample);
         SessionUtils.saveSession(httpSession,"onecard",cards.get(0));
+        userDoExample.clear();
+        userDoExample.createCriteria().andUseridIsNotNull();
+        List<UserDo> userDos = userDoMapper.selectByExample(userDoExample);
+        ArrayList<UserDo> dos = new ArrayList<>();
+
+        for (UserDo userDo:userDos){
+            String dowhat = userDo.getDowhat();
+            if (dowhat.equals("点赞")&&dowhat.equals("评论")&&dowhat.equals("")&&dowhat==null){
+                System.out.println("no");
+            }else{
+                dos.add(userDo);
+            }
+        }
+        System.out.println(userDos);
+        SessionUtils.saveSession(httpSession,"pinglunAll",dos);
         return "redirect:/post.jsp";
     }
 
@@ -156,12 +176,18 @@ public class CardController {
         }
         return map;
     }
-    @GetMapping("search")
+    @GetMapping("/search")
     public String search(String word , HttpSession session){
         cardExample.clear();
         CardExample.Criteria criteria = cardExample.createCriteria().andContentLike("%" + word +"%");
         List<Card> cards = cardMapper.selectByExample(cardExample);
-        session.setAttribute("",cards);
-        return  "";
+        cardExample.clear();
+        cardExample.createCriteria().andTitleLike("%"+word+"%");
+        List<Card> cardList = cardMapper.selectByExample(cardExample);
+        ArrayList<Card> cards1 = new ArrayList<>();
+        cards1.addAll(cards);
+        cards1.addAll(cardList);
+        session.setAttribute("cardAll",cards);
+        return  "redirect:/sousuo.jsp";
     }
 }

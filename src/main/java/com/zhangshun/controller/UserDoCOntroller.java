@@ -54,10 +54,9 @@ public class UserDoCOntroller {
      * @return
      */
     @PostMapping("/pinglun")
-    @ResponseBody
-    public List<UserDo> pinglun(String cardId , String context,HttpSession session){
+    public String pinglun(String cardId , String context,HttpSession session){
         User user = (User) session.getAttribute("user");
-        System.out.println(context);
+        System.out.println("context："+context);
         if (context!=null){
             if (user!=null){
                 Integer userUid = user.getUid();
@@ -66,11 +65,8 @@ public class UserDoCOntroller {
                 userDoMapper.insert(build);
             }
         }
-        userDoExample.clear();
-        userDoExample.createCriteria().andUseridIsNotNull();
-        List<UserDo> userDos = userDoMapper.selectByExample(userDoExample);
-        System.out.println(userDos);
-        return userDos;
+
+        return "redirect:/card/showone?id="+cardId;
     }
 
     /**

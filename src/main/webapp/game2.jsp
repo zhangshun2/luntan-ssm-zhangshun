@@ -24,6 +24,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body id="mydiv">
+
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Game Trfibune</a>
@@ -32,10 +33,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active">
-                <a target="_self" href="${pageContext.request.contextPath}/index.jsp">主页</a>
+                <a target="_self" href="index.jsp">主页</a>
             </li>
             <li class="active">
-                <a target="_self" href="${pageContext.request.contextPath}/game/showgameindex">首页</a>
+                <a target="_self" href="${pageContext.request.contextPath}/game/showgameindex" target="_self">首页</a>
             </li>
 
 
@@ -43,23 +44,23 @@
 
 
             <li class="active right">
-                <a href="#">
 
-                    <c:choose>
-                        <c:when test="${sessionScope.user.username!=null}">${sessionScope.user.username}</c:when>
-                        <c:when test="${sessionScope.user.username==null}"><a href="${pageContext.request.contextPath}/login2.jsp">登录</a> </c:when>
-                    </c:choose>
-                </a>
+
+                <c:choose>
+                    <c:when test="${sessionScope.user.username!=null}">${sessionScope.user.username}</c:when>
+                    <c:when test="${sessionScope.user.username==null}"><a href="${pageContext.request.contextPath}/login2.jsp">登录</a></c:when>
+                </c:choose>
+
             </li>
             <li class="active right">
-                <a href="#">
-                    <c:choose>
-                        <c:when test="${sessionScope.user.username!=null}"><span style="color: greenyellow">online</span>
-                        </c:when>
-                        <c:when test="${sessionScope.user.username==null}"><span style="font-size: 11px"><a href="${pageContext.request.contextPath}/login2.jsp">请前往登录页面</a> </span> </c:when>
-                    </c:choose>
 
-                </a>
+                <c:choose>
+                    <c:when test="${sessionScope.user.username!=null}"><a>online</a>
+                    </c:when>
+                    <c:when test="${sessionScope.user.username==null}"><a href="${pageContext.request.contextPath}/login2.jsp"><span style="font-size: 11px">请前往登录页面 </span></a> </c:when>
+                </c:choose>
+
+
             </li>
             <li class="active right">
                 <a href="${pageContext.request.contextPath}/user/signout">
@@ -72,17 +73,17 @@
                 </a>
             </li>
             <li class=" navbar-right">
-                <a href="${pageContext.request.contextPath}/card/toadd">
+                <a  href="${pageContext.request.contextPath}/card/toadd">
                             <span style="size: 40px">
                                 + 帖子
                             </span>
                 </a>
             </li>
         </ul>
-        <form class="navbar-form navbar-right" role="search">
+        <form class="navbar-form navbar-right" role="search" action="${pageContext.request.contextPath}/card/search" method="get">
             <div class="form-group">
-                <input type="text" class="form-control" />
-            </div> <button type="submit" class="btn btn-default">Submit</button>
+                <input type="text" name="word" class="form-control" />
+            </div> <button type="submit" class="btn btn-default">搜索</button>
         </form>
 
     </div>

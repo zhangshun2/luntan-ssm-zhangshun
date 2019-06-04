@@ -149,6 +149,8 @@ public class CardServiceIm implements CardService {
         List<Card> cards = cardMapper.selectByExample(cardExample);
         Card card = cards.get(0);
         card.setCollecttimes(card.getCollecttimes()+1);
+        UserDo shoucangDo = UserDo.builder().cardid(Integer.parseInt(tid)).dowhat("收藏").itemid(0).userid(Integer.parseInt(uid)).build();
+        userDoMapper.insert(shoucangDo);
         cardMapper.updateByPrimaryKey(card);
     }
 
@@ -183,6 +185,8 @@ public class CardServiceIm implements CardService {
         System.out.println(card);
         card.setThumpsuptimes(card.getThumpsuptimes()+1);
         User user = (User) httpSession.getAttribute("user");
+        UserDo dianzanDo = UserDo.builder().cardid(Integer.parseInt(id)).dowhat("点赞").itemid(0).userid(Integer.parseInt(user==null?"0":user.getUid()+"")).build();
+        userDoMapper.insert(dianzanDo);
         int i = cardMapper.updateByPrimaryKey(card);
         System.out.println(i);
     }
